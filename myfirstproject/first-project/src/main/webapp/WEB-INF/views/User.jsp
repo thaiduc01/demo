@@ -26,7 +26,7 @@
 
 				<body>
 					<a href="#">Add Category</a><br>
-					<a href="first-project/addUser">Add User</a>
+					<a href="${pageContext.request.contextPath}/addUser">Add User</a>
 
 					<form action="doSearch" method="get">
 						<input name="keyword" placeholder="name, email" /><input type="submit" value="search" />
