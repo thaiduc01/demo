@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.firstproject2.entities.UserEntity;
 
+// TODO extends JPARepository and remove implementation package
 public interface UserRepository {
 
     List<UserEntity> findAll();
