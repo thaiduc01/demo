@@ -6,8 +6,18 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import com.example.demochauluc.controller.ChauLucController;
 import com.example.demochauluc.dtos.ChauLucDto;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@EqualsAndHashCode(callSuper = false)
 public class ChauLucResource extends RepresentationModel<ChauLucResource>{
 
+    /*
+     * dto (private access) cần được cung cấp để môi trường bên ngoài có thể lấy được dữ liệu
+     * - Thêm method getter trả về trường dữ liệu dto này
+     * - Hoặc sử dụng lombok annotation (@Getter , @Data, @Value, ..)
+     */
+    @Getter
     private final ChauLucDto dto;
     
     public ChauLucResource(ChauLucDto dto) {
