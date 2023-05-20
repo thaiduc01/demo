@@ -46,12 +46,11 @@ public class DanTocServiceImpl implements DanTocService{
     @Autowired
     private EntityManager em;
     
-  //  @Override
-//    public Paging<DanTocDto> getAllDanTocPaging(int pageNumber, int pageSize){
-//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//        Page<DanTocDto> result= repository.findAll(pageable).map(mapper::toDto);
-//        return Paging.of(result);
-//    }
+    @Override
+    public List<DanTocDto> getAllDanToc(){
+        List<DanToc> danTocs = repository.findAll();
+        return mapper.toDto(danTocs);
+    }
     
     @Override
     public Paging<DanTocDto> getAllDanTocPaging(Pageable pageable){

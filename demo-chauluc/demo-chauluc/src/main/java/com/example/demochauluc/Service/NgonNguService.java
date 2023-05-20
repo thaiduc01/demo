@@ -10,6 +10,8 @@ import com.example.demochauluc.utils.Paging;
 
 public interface NgonNguService {
     
+    List<NgonNguDto> getAllNgonNgu();
+    
     Paging<NgonNguDto> getAllNgonNguPaging(Pageable pageable);
     
     NgonNguDto getNgonNguByID(Long id);

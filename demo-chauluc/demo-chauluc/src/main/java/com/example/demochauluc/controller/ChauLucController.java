@@ -1,6 +1,7 @@
 package com.example.demochauluc.controller;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,9 @@ import com.example.demochauluc.dtos.ChauLucDto;
 import com.example.demochauluc.resource.ChauLucResource;
 import com.example.demochauluc.utils.Paging;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
 @RestController
 @RequestMapping("/api/chauluc")
 public class ChauLucController {
@@ -37,23 +42,30 @@ public class ChauLucController {
     private ChauLucService service;
     
     @GetMapping
+    @Operation(summary = "Lấy tất cả danh sách Châu Lục, link tới getAllPaging và getById ")
     public ResponseEntity<CollectionModel<ChauLucResource>> getAllChauLuc(){
         List<ChauLucDto> dtos = service.getAllChauLuc();
         List<ChauLucResource> resource = dtos.stream().map(ChauLucResource::new).collect(Collectors.toList());
-        
         Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ChauLucController.class).getAllChauLuc()).withSelfRel();
         CollectionModel<ChauLucResource> collectionModel = CollectionModel.of(resource,link);
-        
-        return ResponseEntity.ok(collectionModel);
+        return ResponseEntity.ok().body(collectionModel); 
     }
     
+    @Operation(summary = "Danh sách châu lục theo trang",parameters = {
+            @Parameter(name = "page",description = "số thứ tự trang",required = false),
+            @Parameter(name = "size",description = "số bản ghi trả về cho mỗi trang",required = false),
+            @Parameter(name = "sort",description = "Sắp xếp", required = false)
+    })
     @GetMapping("/getAll")
     public ResponseEntity<Paging<ChauLucDto>> getDSChauLucPaging(@ParameterObject @PageableDefault(size = Integer.MAX_VALUE) Pageable pageable){
         return ResponseEntity.ok().body(service.getAllChauLucPaging(pageable));
     }
     
-    
-    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @GetMapping("/getById/{id}")
+    @Operation(summary = "Danh sách châu lục theo id",parameters = {
+            @Parameter(name = "id",description = "id của châu lục cần lấy danh sách",required = false)
+    })
     public ResponseEntity<ChauLucDto> getChauLucById(@PathVariable(name = "id",required = true)long id){
         ChauLucDto chauluc = service.getChauLucById(id);
         if(chauluc == null) {
@@ -63,8 +75,9 @@ public class ChauLucController {
         }
     }
     
-    
-    @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/create")
+    @Operation(summary = "Tạo mới châu lục")
     public ResponseEntity<ResponseObject> createNewChauLuc(@RequestBody @Valid ChauLucDto dto,BindingResult result,HttpServletRequest request){
         if(result.hasErrors()) {
             throw new InvalidInputException(result);
@@ -74,7 +87,11 @@ public class ChauLucController {
     }
     
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
+    @Operation(summary = "Chỉnh sửa châu lục",parameters = {
+            @Parameter(name = "id",description = " id châu lục cần chỉnh sửa",required = false)
+    })
     public ResponseEntity<ResponseObject> updateChauLuc(@PathVariable(name = "id",required = true)long id,@RequestBody @Valid ChauLucDto dto,BindingResult result){
         if(result.hasErrors()) {
             throw new InvalidInputException(result);
@@ -84,14 +101,17 @@ public class ChauLucController {
         return ResponseEntity.ok(new ResponseObject(success,"success"));
     }
     
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
+    @Operation(summary = "Xóa châu lục",parameters = {
+            @Parameter(name = "id",description = " id châu lục cần xóa",required = false)
+    })
     public ResponseEntity<Void> deleteChauLuc(@PathVariable(name = "id",required = true)long id){
         boolean success = service.deleteChauLuc(id);
         if(success) {
             return ResponseEntity.ok().build();
         }else {
-            return ResponseEntity.badRequest().build();        
+            return ResponseEntity.badRequest().build();
             }
     }
     

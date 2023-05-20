@@ -39,6 +39,12 @@ public class QuocGiaServiceImpl implements QuocGiaService {
     private EntityManager em;
     
     @Override
+    public List<QuocGiaDto> getAllQuocGia(){
+        List<QuocGia> quocgias = repository.findAll();
+        return mapper.toDto(quocgias);
+    }
+    
+    @Override
     public Paging<QuocGiaDto> getAllQuocGiaPaging(Pageable pageable){
         Page<QuocGiaDto> result = repository.findAll(pageable).map(mapper :: toDto);
         return Paging.of(result);

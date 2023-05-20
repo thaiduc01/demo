@@ -10,6 +10,7 @@ import com.example.demochauluc.utils.Paging;
 public interface DanTocService {
 
     //Paging<DanTocDto> getAllDanTocPaging(int pageNumber, int pageSize);
+    List<DanTocDto> getAllDanToc();
     
     Paging<DanTocDto> getAllDanTocPaging(Pageable pageable);
     

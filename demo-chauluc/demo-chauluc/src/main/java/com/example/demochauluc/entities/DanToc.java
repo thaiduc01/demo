@@ -32,7 +32,7 @@ public class DanToc extends AbstractAuditingEntity<Long>{
     
     @Id
     @Column(name = "idDanToc",unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private String tenDanToc;

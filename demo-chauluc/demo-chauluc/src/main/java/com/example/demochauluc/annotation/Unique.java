@@ -13,6 +13,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = UniqueValidator.class)
 public @interface Unique {
     String message() default "Value already exists";
+    boolean isUpdate = true;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

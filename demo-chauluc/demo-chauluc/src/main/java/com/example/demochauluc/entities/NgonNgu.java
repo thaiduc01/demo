@@ -30,7 +30,7 @@ public class NgonNgu extends AbstractAuditingEntity<Long>{
     
     @Column(name = "idNgonngu",unique = true)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private String tenNgonNgu;

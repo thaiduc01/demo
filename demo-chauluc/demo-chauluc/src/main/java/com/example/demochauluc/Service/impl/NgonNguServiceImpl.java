@@ -46,6 +46,12 @@ public class NgonNguServiceImpl implements NgonNguService{
     private EntityManager em;
     
     @Override
+    public List<NgonNguDto> getAllNgonNgu(){
+        List<NgonNgu> ngonngus = repository.findAll();
+        return mapper.toDto(ngonngus);
+    }
+    
+    @Override
     public Paging<NgonNguDto> getAllNgonNguPaging(Pageable pageable){
         Page<NgonNguDto> result = repository.findAll(pageable).map(mapper::toDto);
         return Paging.of(result);
