@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.impl;
+package com.example.demochauluc.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Service.NgonNguService;
 import com.example.demochauluc.dtos.DanhSachNgonNguDto;
 import com.example.demochauluc.dtos.NgonNguDto;
 import com.example.demochauluc.entities.NgonNgu;
@@ -24,6 +23,7 @@ import com.example.demochauluc.mapper.DanhSachNgonNguMapper;
 import com.example.demochauluc.mapper.NgonNguMapper;
 import com.example.demochauluc.repository.NgonNguRepository;
 import com.example.demochauluc.repository.QuocGiaRepository;
+import com.example.demochauluc.service.NgonNguService;
 import com.example.demochauluc.utils.Paging;
 import com.querydsl.jpa.impl.JPAQuery;
 

@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.impl;
+package com.example.demochauluc.service.impl;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Service.QuocGiaService;
 import com.example.demochauluc.dtos.DanhSachQuocGiaDto;
 import com.example.demochauluc.dtos.QuocGiaDto;
 import com.example.demochauluc.entities.QChauLuc;
@@ -20,6 +19,7 @@ import com.example.demochauluc.entities.QuocGia;
 import com.example.demochauluc.mapper.DanhSachQuocGiaMapper;
 import com.example.demochauluc.mapper.QuocGiaMapper;
 import com.example.demochauluc.repository.QuocGiaRepository;
+import com.example.demochauluc.service.QuocGiaService;
 import com.example.demochauluc.utils.Paging;
 import com.querydsl.jpa.impl.JPAQuery;
 

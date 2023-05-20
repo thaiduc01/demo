@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.demochauluc.Service.auth.ApplicationUserDetailService;
+import com.example.demochauluc.service.auth.ApplicationUserDetailService;
 
 @Component
 public class JwtAuthenthicationFilter extends OncePerRequestFilter{
@@ -49,7 +49,7 @@ public class JwtAuthenthicationFilter extends OncePerRequestFilter{
     public String getJwtTokenFromRequest(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");
         try {
-            if(StringUtils.hasText(bearer)&& bearer.startsWith("bearer")) {
+            if(StringUtils.hasText(bearer)&& bearer.startsWith("Bearer")) {
                 String token = bearer.substring(7);
                 return token;
             }

@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.auth.impl;
+package com.example.demochauluc.service.auth.impl;
 
 import javax.security.auth.login.LoginException;
 
@@ -7,9 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Service.auth.UserService;
 import com.example.demochauluc.entities.auth.User;
 import com.example.demochauluc.repository.auth.UserRepository;
+import com.example.demochauluc.service.auth.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{

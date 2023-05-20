@@ -6,8 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.example.demochauluc.Exception.InvalidInputException;
-import com.example.demochauluc.Exception.ResponseObject;
+
+import com.example.demochauluc.exception.InvalidInputException;
+import com.example.demochauluc.exception.ResponseObject;
 
 @ControllerAdvice
 public class ValidationHandler {

@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.auth.impl;
+package com.example.demochauluc.service.auth.impl;
 
 import java.util.Collections;
 
@@ -13,17 +13,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Exception.UserAlreadyExsistException;
-import com.example.demochauluc.Exception.UserDoesNotExtistException;
-import com.example.demochauluc.Service.auth.ManageUserService;
 import com.example.demochauluc.config.TokenGenerator;
 import com.example.demochauluc.dtos.auth.AuthenticatedReponseDto;
 import com.example.demochauluc.dtos.auth.LoginDto;
 import com.example.demochauluc.dtos.auth.RegisterDto;
 import com.example.demochauluc.entities.auth.Role;
 import com.example.demochauluc.entities.auth.User;
+import com.example.demochauluc.exception.UserAlreadyExsistException;
+import com.example.demochauluc.exception.UserDoesNotExtistException;
 import com.example.demochauluc.repository.auth.RoleEntityRepository;
 import com.example.demochauluc.repository.auth.UserRepository;
+import com.example.demochauluc.service.auth.ManageUserService;
 
 @Service
 public class ManageUserServiceImpl implements ManageUserService{
