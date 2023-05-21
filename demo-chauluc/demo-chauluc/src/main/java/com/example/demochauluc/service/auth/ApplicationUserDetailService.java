@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.auth;
+package com.example.demochauluc.service.auth;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Exception.UserDoesNotExtistException;
 import com.example.demochauluc.config.TokenGenerator;
 import com.example.demochauluc.entities.auth.Role;
+import com.example.demochauluc.exception.UserDoesNotExtistException;
 import com.example.demochauluc.repository.auth.UserRepository;
 
 @Service

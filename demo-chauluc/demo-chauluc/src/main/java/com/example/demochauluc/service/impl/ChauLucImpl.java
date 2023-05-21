@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.impl;
+package com.example.demochauluc.service.impl;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demochauluc.Service.ChauLucService;
 import com.example.demochauluc.dtos.ChauLucDto;
 import com.example.demochauluc.entities.ChauLuc;
 import com.example.demochauluc.mapper.ChauLucMapper;
 import com.example.demochauluc.repository.ChauLucRepository;
+import com.example.demochauluc.service.ChauLucService;
 import com.example.demochauluc.utils.Paging;
 
 @Service

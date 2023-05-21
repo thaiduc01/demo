@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service.auth;
+package com.example.demochauluc.service.auth;
 
 import com.example.demochauluc.dtos.auth.AuthenticatedReponseDto;
 import com.example.demochauluc.dtos.auth.LoginDto;

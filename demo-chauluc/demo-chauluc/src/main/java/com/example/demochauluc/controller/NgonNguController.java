@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demochauluc.Service.NgonNguService;
 import com.example.demochauluc.dtos.DanhSachNgonNguDto;
 import com.example.demochauluc.dtos.NgonNguDto;
 import com.example.demochauluc.resource.NgonNguResource;
+import com.example.demochauluc.service.NgonNguService;
 import com.example.demochauluc.utils.Paging;
 
 import io.swagger.v3.oas.annotations.Operation;

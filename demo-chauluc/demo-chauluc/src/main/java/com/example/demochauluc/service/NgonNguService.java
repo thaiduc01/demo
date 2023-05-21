@@ -1,4 +1,4 @@
-package com.example.demochauluc.Service;
+package com.example.demochauluc.service;
 
 import java.util.List;
 

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demochauluc.Service.auth.ManageUserService;
 import com.example.demochauluc.dtos.auth.AuthenticatedReponseDto;
 import com.example.demochauluc.dtos.auth.LoginDto;
 import com.example.demochauluc.dtos.auth.RegisterDto;
+import com.example.demochauluc.service.auth.ManageUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 

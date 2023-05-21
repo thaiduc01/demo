@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demochauluc.Exception.InvalidInputException;
-import com.example.demochauluc.Exception.ResponseObject;
-import com.example.demochauluc.Service.ChauLucService;
 import com.example.demochauluc.dtos.ChauLucDto;
+import com.example.demochauluc.exception.InvalidInputException;
+import com.example.demochauluc.exception.ResponseObject;
 import com.example.demochauluc.resource.ChauLucResource;
+import com.example.demochauluc.service.ChauLucService;
 import com.example.demochauluc.utils.Paging;
 
 import io.swagger.v3.oas.annotations.Operation;
