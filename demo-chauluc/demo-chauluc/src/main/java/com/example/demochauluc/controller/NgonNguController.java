@@ -112,7 +112,7 @@ public class NgonNguController {
     @Operation(summary = "Tìm kiếm ngôn ngữ theo tên quốc gia", parameters = {
             @Parameter(name = "tenQuocGia",description = "Tên quốc gia ngôn ngữ cần tìm",required = false)
     })
-    public ResponseEntity<List<DanhSachNgonNguDto>> findNgonNguByNameQuocGia(@PathParam(value = "tenQuocGia")String tenQuocGia){
-        return ResponseEntity.ok(service.findByNameQuocGia(tenQuocGia));
+    public ResponseEntity<Paging<DanhSachNgonNguDto>> findNgonNguByNameQuocGia(@PathParam(value = "tenQuocGia")String tenQuocGia,@ParameterObject @PageableDefault(size = Integer.MAX_VALUE)Pageable pageable){
+        return ResponseEntity.ok(service.findByNameQuocGia(tenQuocGia,pageable));
     }
 }

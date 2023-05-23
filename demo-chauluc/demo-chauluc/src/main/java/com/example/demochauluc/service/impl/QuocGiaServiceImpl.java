@@ -79,18 +79,38 @@ public class QuocGiaServiceImpl implements QuocGiaService {
         return true;
     }
     
+    
     @Override
-    public Paging<DanhSachQuocGiaDto> findQuocGiaByChauLuc(String tenChauLuc,Pageable pageable){
+    public Paging<DanhSachQuocGiaDto> findQuocGiaByChauLuc(String tenChauLuc, Pageable pageable) {
         JPAQuery<QuocGia> query = new JPAQuery<>(em);
         QQuocGia quocgia = QQuocGia.quocGia;
         QChauLuc chauluc = QChauLuc.chauLuc;
-        List<QuocGia> quocgias =  query.select(quocgia)
-        .from(quocgia)
-        .join(quocgia.chauluc,chauluc)
-        .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
-        .fetch();
-        Page<QuocGia> pages = new PageImpl<>(quocgias);
-        Page<DanhSachQuocGiaDto> result =pages.map(dsmapper :: toDto);
+        
+        boolean chauLucExists = query.select(chauluc).from(chauluc)
+                .where(chauluc.tenChauLuc.equalsIgnoreCase(tenChauLuc))
+                .fetchFirst()==null;
+        
+        if(chauLucExists) {
+            throw new com.example.demochauluc.Exception.EntityNotFoundException("tên Châu Lục không tồn tại");
+        
+        }else {
+        Long totalQuocGias = query.select(quocgia.id.count())
+                  .from(quocgia)
+                  .join(quocgia.chauluc, chauluc)
+                  .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
+                  .fetchFirst();
+  
+          List<QuocGia> dsquocgia = query.select(quocgia)
+                  .from(quocgia)
+                  .join(quocgia.chauluc, chauluc)
+                  .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
+                  .offset(pageable.getOffset())
+                  .limit(pageable.getPageSize())
+                  .fetch();
+  
+          Page<QuocGia> pages = new PageImpl<>(dsquocgia, pageable, totalQuocGias);
+          Page<DanhSachQuocGiaDto> result = pages.map(dsmapper::toDto);
         return Paging.of(result);
+        }
     }
 }

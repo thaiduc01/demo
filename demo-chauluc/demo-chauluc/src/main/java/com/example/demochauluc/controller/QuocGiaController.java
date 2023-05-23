@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demochauluc.Exception.InvalidInputException;
+import com.example.demochauluc.Exception.ResponseObject;
 import com.example.demochauluc.dtos.DanhSachQuocGiaDto;
 import com.example.demochauluc.dtos.QuocGiaDto;
-import com.example.demochauluc.exception.InvalidInputException;
-import com.example.demochauluc.exception.ResponseObject;
 import com.example.demochauluc.resource.QuocGiaResource;
 import com.example.demochauluc.service.QuocGiaService;
 import com.example.demochauluc.utils.Paging;
@@ -45,6 +45,7 @@ public class QuocGiaController {
     @Autowired
     private QuocGiaService service;
     
+    
     @GetMapping
     @Operation(summary = "Lấy tất cả danh sách quốc gia, link tới GetAllPaging và getById")
     public ResponseEntity<CollectionModel<QuocGiaResource>> getAllQuocGia(){
@@ -55,6 +56,7 @@ public class QuocGiaController {
         return ResponseEntity.ok(collectionModel);
         
     }
+    
     
     @GetMapping("/getAll")
     @Operation(summary = "Danh sách quốc gia theo trang")
@@ -76,6 +78,7 @@ public class QuocGiaController {
         }
     }
     
+    
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping
     @Operation(summary = "Tạo mới quốc gia")
@@ -88,8 +91,9 @@ public class QuocGiaController {
     }
     
     
+    
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-   @PutMapping("/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Chỉnh sửa quốc gia theo id", parameters = {
             @Parameter(name = "id", description = "id quốc gia cần chỉnh sửa", required = false)
     })
@@ -101,6 +105,7 @@ public class QuocGiaController {
        boolean success = service.updateQuocGia(dto);
         return ResponseEntity.ok(new ResponseObject(success,"success"));
     }
+    
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
@@ -116,17 +121,13 @@ public class QuocGiaController {
         }
     }
     
+    
+    
     @GetMapping("/tim-theo-ten-chau-luc")
     @Operation(summary = "Tìm quốc gia theo tên châu luc", parameters = {
             @Parameter(name = "tenChauLuc",description = "Tên châu lục mà quốc gia cần tìm kiếm ",required = false)
     })
-    public ResponseEntity<Paging<DanhSachQuocGiaDto>> findQuocGiaByChauLuc(@PathParam(value = "tenChauLuc")String tenChauLuc,@ParameterObject Pageable pageable){
+    public ResponseEntity<Paging<DanhSachQuocGiaDto>> findQuocGiaByChauLuc(@PathParam(value = "tenChauLuc")String tenChauLuc,@ParameterObject @PageableDefault(size = Integer.MAX_VALUE) Pageable pageable){
         return ResponseEntity.ok().body(service.findQuocGiaByChauLuc(tenChauLuc,pageable));
-//        Optional<Paging<DanhSachQuocGiaDto>> optionalResult = Optional.ofNullable(service.findQuocGiaByChauLuc(tenChauLuc, pageable));
-//        if (optionalResult.isPresent()) {
-//            return ResponseEntity.ok().body(optionalResult.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
     }
 }

@@ -1,5 +1,6 @@
-package com.example.demochauluc.exception;
+package com.example.demochauluc.Exception;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ResponseObject {
@@ -48,6 +49,5 @@ public class ResponseObject {
     public String toString() {
         return "ResponseObject [data=" + data + ", errorMessage=" + errorMessage + ", status=" + status + "]";
     }
-    
     
 }

@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -94,16 +95,38 @@ public class NgonNguServiceImpl implements NgonNguService{
     }
     
     @Override
-    public List<DanhSachNgonNguDto> findByNameQuocGia(String tenQuocGia){
+    public Paging<DanhSachNgonNguDto> findByNameQuocGia(String tenQuocGia,Pageable pageable){
         JPAQuery<NgonNgu> query = new JPAQuery<>(em);
         QNgonNgu ngonngu = QNgonNgu.ngonNgu;
         QQuocGia quocgia = QQuocGia.quocGia;
-        List<NgonNgu> ngonngus =  query.select(ngonngu)
+        
+        boolean quocGiaExists = query.select(quocgia)
+                .from(quocgia)
+                .where(quocgia.tenQuocGia.equalsIgnoreCase(tenQuocGia))
+                .fetchFirst() == null;
+        
+        if(quocGiaExists) {
+            throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên quốc gia không tồn tại");
+        }else {
+        Long ngonngus =  query.select(ngonngu.id.count())
                 .from(ngonngu)
                 .join(ngonngu.quocgia,quocgia)
                 .where(quocgia.tenQuocGia.containsIgnoreCase(tenQuocGia))
+                .fetchFirst();
+        
+        List<NgonNgu> dsngonngu = query.select(ngonngu)
+                .from(ngonngu)
+                .join(ngonngu.quocgia,quocgia)
+                .where(quocgia.tenQuocGia.containsIgnoreCase(tenQuocGia))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
-        return dsmapper.toDto(ngonngus);
+        
+        Page<NgonNgu> pages = new PageImpl<NgonNgu>(dsngonngu, pageable, ngonngus);
+        Page<DanhSachNgonNguDto> dtos = pages.map(dsmapper::toDto);
+        
+        return Paging.of(dtos);
+    }
     }
 }
 

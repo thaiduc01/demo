@@ -2,13 +2,18 @@ package com.example.demochauluc.handler;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.example.demochauluc.exception.InvalidInputException;
-import com.example.demochauluc.exception.ResponseObject;
+import com.example.demochauluc.Exception.EntityNotFoundException;
+import com.example.demochauluc.Exception.ErrorDetails;
+import com.example.demochauluc.Exception.InvalidInputException;
+import com.example.demochauluc.Exception.ResponseObject;
+
 
 @ControllerAdvice
 public class ValidationHandler {
@@ -40,5 +45,11 @@ public class ValidationHandler {
         Map<String, String> error = ex.getResult().getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField,FieldError::getDefaultMessage));
         ResponseObject ro = new ResponseObject(error,"fail");
         return ResponseEntity.badRequest().body(ro);
+    }
+    
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<ErrorDetails> handleAsBadRequest(RuntimeException ex){
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
+        return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
     }
 }

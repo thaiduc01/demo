@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demochauluc.Exception.InvalidInputException;
+import com.example.demochauluc.Exception.ResponseObject;
 import com.example.demochauluc.dtos.ChauLucDto;
-import com.example.demochauluc.exception.InvalidInputException;
-import com.example.demochauluc.exception.ResponseObject;
 import com.example.demochauluc.resource.ChauLucResource;
 import com.example.demochauluc.service.ChauLucService;
 import com.example.demochauluc.utils.Paging;
@@ -61,7 +61,6 @@ public class ChauLucController {
         return ResponseEntity.ok().body(service.getAllChauLucPaging(pageable));
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping("/getById/{id}")
     @Operation(summary = "Danh sách châu lục theo id",parameters = {
             @Parameter(name = "id",description = "id của châu lục cần lấy danh sách",required = false)

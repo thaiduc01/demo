@@ -1,4 +1,4 @@
-package com.example.demochauluc.exception;
+package com.example.demochauluc.Exception;
 
 public class UserDoesNotExtistException extends RuntimeException{
 

@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -95,28 +96,70 @@ public class DanTocServiceImpl implements DanTocService{
     }
     
     @Override
-    public List<DanhSachDanTocDto> findByNameQuocGia(String tenQuocGia){
+    public Paging<DanhSachDanTocDto> findByNameQuocGia(String tenQuocGia,Pageable pageable){
             JPAQuery<DanToc> query = new JPAQuery<>(em);
             QDanToc dantoc = QDanToc.danToc;
             QQuocGia quocgia = QQuocGia.quocGia;
-            List<DanToc> dantocs =  query.select(dantoc)
+            
+            boolean tenDanTocExists = query.select(quocgia)
+                    .from(quocgia)
+                    .where(quocgia.tenQuocGia.equalsIgnoreCase(tenQuocGia))
+                    .fetchFirst() == null;
+            if(tenDanTocExists) {
+                throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên quốc gia không tồn tại");
+            }else {
+            Long dantocs = query.select(dantoc.id.count())
                     .from(dantoc)
                     .join(dantoc.quocgia,quocgia)
                     .where(quocgia.tenQuocGia.containsIgnoreCase(tenQuocGia))
+                    .fetchFirst();
+            
+            List<DanToc> dsdantoc =  query.select(dantoc)
+                    .from(dantoc)
+                    .join(dantoc.quocgia,quocgia)
+                    .where(quocgia.tenQuocGia.containsIgnoreCase(tenQuocGia))
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
                     .fetch();
-            return dsdantocMapper.toDto(dantocs);
+            
+            Page<DanToc> pages = new PageImpl<DanToc>(dsdantoc, pageable, dantocs);
+            Page<DanhSachDanTocDto> result = pages.map(dsdantocMapper::toDto);
+            return Paging.of(result);
+    }
     }
     
     @Override
-    public List<DanhSachDanTocDto> findByNameChauLuc(String tenChauLuc){
+    public Paging<DanhSachDanTocDto> findByNameChauLuc(String tenChauLuc,Pageable pageable){
         JPAQuery<DanToc> query = new JPAQuery<>(em);
         QDanToc dantoc = QDanToc.danToc;
         QChauLuc chauluc = QChauLuc.chauLuc;
-        List<DanToc> dantocs = query.select(dantoc)
+        
+        boolean tenChauLucExists = query.select(chauluc)
+                .from(chauluc)
+                .where(chauluc.tenChauLuc.equalsIgnoreCase(tenChauLuc))
+                .fetchFirst() == null;
+        
+        if(tenChauLucExists) {
+            throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên châu lục không tồn tại");
+        }else {
+        Long dantocs = query.select(dantoc.id.count())
                 .from(dantoc)
                 .join(dantoc.chauluc,chauluc)
                 .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
+                .fetchFirst();
+        
+        
+        List<DanToc> dsdantoc = query.select(dantoc)
+                .from(dantoc)
+                .join(dantoc.chauluc,chauluc)
+                .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
-        return dsdantocMapper.toDto(dantocs);
+        
+        Page<DanToc> pages = new PageImpl<DanToc>(dsdantoc, pageable,dantocs);
+        Page<DanhSachDanTocDto> result = pages.map(dsdantocMapper :: toDto);
+        return Paging.of(result);
+    }
     }
 }

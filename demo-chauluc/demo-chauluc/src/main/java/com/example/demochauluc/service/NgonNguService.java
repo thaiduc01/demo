@@ -22,5 +22,5 @@ public interface NgonNguService {
     
     boolean deleteNgonNgu(Long id);
     
-    List<DanhSachNgonNguDto> findByNameQuocGia(String tenQuocGia);
+    Paging<DanhSachNgonNguDto> findByNameQuocGia(String tenQuocGia,Pageable pageable);
 }

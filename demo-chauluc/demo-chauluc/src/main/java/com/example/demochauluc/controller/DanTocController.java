@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demochauluc.Exception.InvalidInputException;
+import com.example.demochauluc.Exception.ResponseObject;
 import com.example.demochauluc.dtos.DanTocDto;
 import com.example.demochauluc.dtos.DanhSachDanTocDto;
-import com.example.demochauluc.exception.InvalidInputException;
-import com.example.demochauluc.exception.ResponseObject;
 import com.example.demochauluc.resource.DanTocResource;
 import com.example.demochauluc.service.DanTocService;
 import com.example.demochauluc.utils.Paging;
@@ -125,8 +125,8 @@ public class DanTocController {
     @Operation(summary = "Tìm kiếm dân tộc theo tên quốc gia", parameters = {
             @Parameter(name = "tenQuocGia",description = "tên quốc gia muốn tìm", required =  false)
     })
-    public ResponseEntity<List<DanhSachDanTocDto>> findDanTocByNameQuocGia(@PathParam(value = "tenQuocGia")String tenQuocGia){
-        return ResponseEntity.ok(service.findByNameQuocGia(tenQuocGia));
+    public ResponseEntity<Paging<DanhSachDanTocDto>> findDanTocByNameQuocGia(@PathParam(value = "tenQuocGia")String tenQuocGia,@ParameterObject @PageableDefault(size = Integer.MAX_VALUE)Pageable pageable){
+        return ResponseEntity.ok(service.findByNameQuocGia(tenQuocGia,pageable));
     }
     
     @GetMapping("/tim-kiem-theo-ten-chau-luc")
@@ -134,7 +134,7 @@ public class DanTocController {
             @Parameter(name = "tenChauLuc", description = "Tên châu lục cần tìm", required =  false)
     })
     
-    public ResponseEntity<List<DanhSachDanTocDto>> findDanTocByNameChauLuc(@PathParam(value = "tenChauLuc")String tenChauLuc){
-        return ResponseEntity.ok(service.findByNameChauLuc(tenChauLuc));
+    public ResponseEntity<Paging<DanhSachDanTocDto>> findDanTocByNameChauLuc(@PathParam(value = "tenChauLuc")String tenChauLuc,@ParameterObject @PageableDefault(size = Integer.MAX_VALUE)Pageable pageable){
+        return ResponseEntity.ok(service.findByNameChauLuc(tenChauLuc,pageable));
     }
 }

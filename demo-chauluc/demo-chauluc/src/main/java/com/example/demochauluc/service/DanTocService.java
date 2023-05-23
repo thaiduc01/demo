@@ -22,7 +22,7 @@ public interface DanTocService {
     
     boolean deleteDanToc(Long id);
     
-    List<DanhSachDanTocDto> findByNameQuocGia(String tenQuocGia);
+    Paging<DanhSachDanTocDto> findByNameQuocGia(String tenQuocGia,Pageable pageable);
     
-    List<DanhSachDanTocDto> findByNameChauLuc(String tenChauLuc);
+    Paging<DanhSachDanTocDto> findByNameChauLuc(String tenChauLuc,Pageable pageable);
 }
