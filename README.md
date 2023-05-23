@@ -1,9 +1,9 @@
 Trong Spring Boot: 
-- Li�n k?t ch?t (tight coupling) l� m?t ki?u thi?t k? trong d� c�c th�nh ph?n c?a h? th?ng du?c thi?t k? d? ph? thu?c ch?t ch? v�o nhau. �i?u n�y c� nghia l� khi m?t th�nh ph?n thay d?i, t?t c? c�c th�nh ph?n kh�c cung ph?i thay d?i d? ph� h?p v?i n�. 
-- Ngu?c l?i, li�n k?t l?ng (loose coupling) l� m?t ki?u thi?t k? trong d� c�c th�nh ph?n c?a h? th?ng du?c thi?t k? d? kh�ng ph? thu?c ch?t ch? v�o nhau. �i?u n�y c� nghia l� khi m?t th�nh ph?n thay d?i, c�c th�nh ph?n kh�c kh�ng b? ?nh hu?ng.
-
-- Trong Hibernate, m?t session l� m?t d?i tu?ng du?c s? d?ng d? tuong t�c v?i co s? d? li?u. M?i session d?i di?n cho m?t phi�n l�m vi?c v?i co s? d? li?u. Session c� th? du?c s? d?ng d? luu tr? v� truy xu?t c�c d?i tu?ng trong co s? d? li?u. Session trong Hibernate c� v�ng d?i nhu sau:
-
-+ Transient: �?i tu?ng m?i du?c t?o ra v� chua du?c li�n k?t v?i session.
-+ Persistent: �?i tu?ng d� du?c li�n k?t v?i session v� d� du?c luu tr? trong co s? d? li?u.
-+ Detached: �?i tu?ng d� du?c li�n k?t v?i session nhung kh�ng c�n du?c qu?n l� b?i session n?a
+- Liên kết chặt (tight coupling) là một kiểu thiết kế trong đó các thành phần của hệ thống được thiết kế để phụ thuộc chặt chẽ vào nhau. Điều này có nghĩa là khi một thành phần thay đổi, tất cả các thành phần khác cũng phải thay đổi để phù hợp với nó. 
+- Ngược lại, liên kết lỏng (loose coupling) là một kiểu thiết kế trong đó các thành phần của hệ thống được thiết kế để không phụ thuộc chặt chẽ vào nhau. Điều này có nghĩa là khi một thành phần thay đổi, các thành phần khác không bị ảnh hưởng.
+- Trong SQL, transaction là một chuỗi các hoạt động được thực hiện trên cơ sở dữ liệu. Một transaction bao gồm các hoạt động như chèn, cập nhật và xóa dữ liệu. Một transaction phải được bắt đầu bằng lệnh BEGIN TRANSACTION và kết thúc bằng lệnh COMMIT hoặc ROLLBACK1.
+- Trong Hibernate, một session là một đối tượng được sử dụng để tương tác với cơ sở dữ liệu. Mỗi session đại diện cho một phiên làm việc với cơ sở dữ liệu. Session có thể được sử dụng để lưu trữ và truy xuất các đối tượng trong cơ sở dữ liệu. Session trong Hibernate có vòng đời như sau:
+  
+  + Transient: Đối tượng mới được tạo ra và chưa được liên kết với session.
+  + Persistent: Đối tượng đã được liên kết với session và đã được lưu trữ trong cơ sở dữ liệu.
+  + Detached: Đối tượng đã được liên kết với session nhưng không còn được quản lý bởi session nữa.
