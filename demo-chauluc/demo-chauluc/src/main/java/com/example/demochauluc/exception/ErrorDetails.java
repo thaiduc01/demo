@@ -1,4 +1,4 @@
-package com.example.demochauluc.Exception;
+package com.example.demochauluc.exception;
 
 import java.util.ArrayList;
 import java.util.Collection;
