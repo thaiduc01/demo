@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demochauluc.Exception.InvalidInputException;
-import com.example.demochauluc.Exception.ResponseObject;
 import com.example.demochauluc.dtos.DanTocDto;
 import com.example.demochauluc.dtos.DanhSachDanTocDto;
+import com.example.demochauluc.exception.InvalidInputException;
+import com.example.demochauluc.exception.ResponseObject;
 import com.example.demochauluc.resource.DanTocResource;
 import com.example.demochauluc.service.DanTocService;
 import com.example.demochauluc.utils.Paging;

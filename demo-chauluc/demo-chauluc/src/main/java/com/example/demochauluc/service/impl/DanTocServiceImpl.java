@@ -106,7 +106,7 @@ public class DanTocServiceImpl implements DanTocService{
                     .where(quocgia.tenQuocGia.equalsIgnoreCase(tenQuocGia))
                     .fetchFirst() == null;
             if(tenDanTocExists) {
-                throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên quốc gia không tồn tại");
+                throw new com.example.demochauluc.exception.EntityNotFoundException("Tên quốc gia không tồn tại");
             }else {
             Long dantocs = query.select(dantoc.id.count())
                     .from(dantoc)
@@ -140,7 +140,7 @@ public class DanTocServiceImpl implements DanTocService{
                 .fetchFirst() == null;
         
         if(tenChauLucExists) {
-            throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên châu lục không tồn tại");
+            throw new com.example.demochauluc.exception.EntityNotFoundException("Tên châu lục không tồn tại");
         }else {
         Long dantocs = query.select(dantoc.id.count())
                 .from(dantoc)

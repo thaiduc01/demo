@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demochauluc.dtos.DanhSachNgonNguDto;
@@ -106,7 +108,7 @@ public class NgonNguServiceImpl implements NgonNguService{
                 .fetchFirst() == null;
         
         if(quocGiaExists) {
-            throw new com.example.demochauluc.Exception.EntityNotFoundException("Tên quốc gia không tồn tại");
+            throw new com.example.demochauluc.exception.EntityNotFoundException("Tên quốc gia không tồn tại");
         }else {
         Long ngonngus =  query.select(ngonngu.id.count())
                 .from(ngonngu)

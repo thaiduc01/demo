@@ -9,10 +9,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.example.demochauluc.Exception.EntityNotFoundException;
-import com.example.demochauluc.Exception.ErrorDetails;
-import com.example.demochauluc.Exception.InvalidInputException;
-import com.example.demochauluc.Exception.ResponseObject;
+import com.example.demochauluc.exception.EntityNotFoundException;
+import com.example.demochauluc.exception.ErrorDetails;
+import com.example.demochauluc.exception.InvalidInputException;
+import com.example.demochauluc.exception.ResponseObject;
 
 
 @ControllerAdvice

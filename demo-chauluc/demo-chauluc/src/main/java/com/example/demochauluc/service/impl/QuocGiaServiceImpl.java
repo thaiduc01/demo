@@ -5,10 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demochauluc.dtos.DanhSachQuocGiaDto;
@@ -91,7 +93,7 @@ public class QuocGiaServiceImpl implements QuocGiaService {
                 .fetchFirst()==null;
         
         if(chauLucExists) {
-            throw new com.example.demochauluc.Exception.EntityNotFoundException("tên Châu Lục không tồn tại");
+            throw new com.example.demochauluc.exception.EntityNotFoundException("tên Châu Lục không tồn tại");
         
         }else {
         Long totalQuocGias = query.select(quocgia.id.count())
@@ -100,6 +102,23 @@ public class QuocGiaServiceImpl implements QuocGiaService {
                   .where(chauluc.tenChauLuc.containsIgnoreCase(tenChauLuc))
                   .fetchFirst();
   
+        
+        Sort sort = pageable.getSort();
+        if(sort.isSorted()) {
+            sort.forEach(s -> {
+                if(StringUtils.equals("dienTich", s.getProperty())) {
+                    query.orderBy(s.isAscending()
+                            ? quocgia.dienTich.asc()
+                            : quocgia.dienTich.desc());
+                }
+                if(StringUtils.equals("soDan", s.getProperty())) {
+                    query.orderBy(s.isAscending()
+                            ? quocgia.soDan.asc()
+                            : quocgia.soDan.desc()); 
+                }
+            });
+        }
+        
           List<QuocGia> dsquocgia = query.select(quocgia)
                   .from(quocgia)
                   .join(quocgia.chauluc, chauluc)
